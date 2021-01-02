@@ -1363,6 +1363,9 @@ public class Evaluator implements CalculatorExpr.ExprResolver {
         if (id == R.id.fun_10pow) {
             add10pow();  // Handled as macro expansion.
             return true;
+        }else if (id == R.id.digit_double0) {
+            add00pow();  // Handled as macro expansion.
+            return true;
         } else {
             mChangedValue = mChangedValue || !KeyMaps.isBinary(id);
             if (mMainExpr.mExpr.add(id)) {
@@ -1777,6 +1780,12 @@ public class Evaluator implements CalculatorExpr.ExprResolver {
         mChangedValue = true;  // For consistency.  Reevaluation is probably not useful.
         mMainExpr.mExpr.append(ten);
         mMainExpr.mExpr.add(R.id.op_pow);
+    }
+
+    private void add00pow() {
+        mChangedValue = true;  // For consistency.  Reevaluation is probably not useful.
+        mMainExpr.mExpr.add(R.id.digit_0);
+        mMainExpr.mExpr.add(R.id.digit_0);
     }
 
     /**

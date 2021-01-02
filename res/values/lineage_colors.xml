@@ -17,5 +17,4 @@
 
 <resources>
     <color name="navigationBar_color">@android:color/white</color>
-    <color name="navigationBar_divider">#1f000000</color>
 </resources>
