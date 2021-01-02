@@ -9,3 +9,10 @@ local.properties
 *.swp
 *.swo
 *.iml
+/system_libs
+/system_libs/cr.jar
+/gradle
+keystore.properties
+gradlew
+gradlew.bat
+platform.jks

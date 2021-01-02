@@ -44,10 +44,12 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
+
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -86,7 +88,7 @@ import java.text.DecimalFormatSymbols;
 import static com.android.calculator2.CalculatorFormula.OnFormulaContextMenuClickListener;
 
 public class Calculator extends Activity
-        implements OnTextSizeChangeListener, OnLongClickListener,
+        implements OnTextSizeChangeListener,
         AlertDialogFragment.OnClickListener, Evaluator.EvaluationListener /* for main result */,
         DragLayout.CloseCallback, DragLayout.DragCallback {
 
@@ -98,20 +100,20 @@ public class Calculator extends Activity
 
     private enum CalculatorState {
         INPUT,          // Result and formula both visible, no evaluation requested,
-                        // Though result may be visible on bottom line.
+        // Though result may be visible on bottom line.
         EVALUATE,       // Both visible, evaluation requested, evaluation/animation incomplete.
-                        // Not used for instant result evaluation.
+        // Not used for instant result evaluation.
         INIT,           // Very temporary state used as alternative to EVALUATE
-                        // during reinitialization.  Do not animate on completion.
+        // during reinitialization.  Do not animate on completion.
         INIT_FOR_RESULT,  // Identical to INIT, but evaluation is known to terminate
-                          // with result, and current expression has been copied to history.
+        // with result, and current expression has been copied to history.
         ANIMATE,        // Result computed, animation to enlarge result window in progress.
         RESULT,         // Result displayed, formula invisible.
-                        // If we are in RESULT state, the formula was evaluated without
-                        // error to initial precision.
-                        // The current formula is now also the last history entry.
+        // If we are in RESULT state, the formula was evaluated without
+        // error to initial precision.
+        // The current formula is now also the last history entry.
         ERROR           // Error displayed: Formula visible, result shows error message.
-                        // Display similar to INPUT state.
+        // Display similar to INPUT state.
     }
     // Normal transition sequence is
     // INPUT -> EVALUATE -> ANIMATE -> RESULT (or ERROR) -> INPUT
@@ -131,16 +133,16 @@ public class Calculator extends Activity
 
     private final Property<TextView, Integer> TEXT_COLOR =
             new Property<TextView, Integer>(Integer.class, "textColor") {
-        @Override
-        public Integer get(TextView textView) {
-            return textView.getCurrentTextColor();
-        }
+                @Override
+                public Integer get(TextView textView) {
+                    return textView.getCurrentTextColor();
+                }
 
-        @Override
-        public void set(TextView textView, Integer textColor) {
-            textView.setTextColor(textColor);
-        }
-    };
+                @Override
+                public void set(TextView textView, Integer textColor) {
+                    textView.setTextColor(textColor);
+                }
+            };
 
     private static final String NAME = "Calculator";
     private static final String KEY_DISPLAY_STATE = NAME + "_display_state";
@@ -157,16 +159,16 @@ public class Calculator extends Activity
 
     private final ViewTreeObserver.OnPreDrawListener mPreDrawListener =
             new ViewTreeObserver.OnPreDrawListener() {
-        @Override
-        public boolean onPreDraw() {
-            mFormulaContainer.scrollTo(mFormulaText.getRight(), 0);
-            final ViewTreeObserver observer = mFormulaContainer.getViewTreeObserver();
-            if (observer.isAlive()) {
-                observer.removeOnPreDrawListener(this);
-            }
-            return false;
-        }
-    };
+                @Override
+                public boolean onPreDraw() {
+                    mFormulaContainer.scrollTo(mFormulaText.getRight(), 0);
+                    final ViewTreeObserver observer = mFormulaContainer.getViewTreeObserver();
+                    if (observer.isAlive()) {
+                        observer.removeOnPreDrawListener(this);
+                    }
+                    return false;
+                }
+            };
 
     private final Evaluator.Callback mEvaluatorCallback = new Evaluator.Callback() {
         @Override
@@ -176,7 +178,7 @@ public class Calculator extends Activity
 
         @Override
         public void showMessageDialog(@StringRes int title, @StringRes int message,
-                @StringRes int positiveButtonLabel, String tag) {
+                                      @StringRes int positiveButtonLabel, String tag) {
             AlertDialogFragment.showMessageDialog(Calculator.this, title, message,
                     positiveButtonLabel, tag);
 
@@ -185,44 +187,44 @@ public class Calculator extends Activity
 
     private final OnDisplayMemoryOperationsListener mOnDisplayMemoryOperationsListener =
             new OnDisplayMemoryOperationsListener() {
-        @Override
-        public boolean shouldDisplayMemory() {
-            return mEvaluator.getMemoryIndex() != 0;
-        }
-    };
+                @Override
+                public boolean shouldDisplayMemory() {
+                    return mEvaluator.getMemoryIndex() != 0;
+                }
+            };
 
     private final OnFormulaContextMenuClickListener mOnFormulaContextMenuClickListener =
             new OnFormulaContextMenuClickListener() {
-        @Override
-        public boolean onPaste(ClipData clip) {
-            final ClipData.Item item = clip.getItemCount() == 0 ? null : clip.getItemAt(0);
-            if (item == null) {
-                // nothing to paste, bail early...
-                return false;
-            }
+                @Override
+                public boolean onPaste(ClipData clip) {
+                    final ClipData.Item item = clip.getItemCount() == 0 ? null : clip.getItemAt(0);
+                    if (item == null) {
+                        // nothing to paste, bail early...
+                        return false;
+                    }
 
-            // Check if the item is a previously copied result, otherwise paste as raw text.
-            final Uri uri = item.getUri();
-            if (uri != null && mEvaluator.isLastSaved(uri)) {
-                clearIfNotInputState();
-                mEvaluator.appendExpr(mEvaluator.getSavedIndex());
-                redisplayAfterFormulaChange();
-            } else {
-                addChars(item.coerceToText(Calculator.this).toString(), false);
-            }
-            return true;
-        }
+                    // Check if the item is a previously copied result, otherwise paste as raw text.
+                    final Uri uri = item.getUri();
+                    if (uri != null && mEvaluator.isLastSaved(uri)) {
+                        clearIfNotInputState();
+                        mEvaluator.appendExpr(mEvaluator.getSavedIndex());
+                        redisplayAfterFormulaChange();
+                    } else {
+                        addChars(item.coerceToText(Calculator.this).toString(), false);
+                    }
+                    return true;
+                }
 
-        @Override
-        public void onMemoryRecall() {
-            clearIfNotInputState();
-            long memoryIndex = mEvaluator.getMemoryIndex();
-            if (memoryIndex != 0) {
-                mEvaluator.appendExpr(mEvaluator.getMemoryIndex());
-                redisplayAfterFormulaChange();
-            }
-        }
-    };
+                @Override
+                public void onMemoryRecall() {
+                    clearIfNotInputState();
+                    long memoryIndex = mEvaluator.getMemoryIndex();
+                    if (memoryIndex != 0) {
+                        mEvaluator.appendExpr(mEvaluator.getMemoryIndex());
+                        redisplayAfterFormulaChange();
+                    }
+                }
+            };
 
 
     private final TextWatcher mFormulaTextWatcher = new TextWatcher() {
@@ -338,7 +340,7 @@ public class Calculator extends Activity
     private void restoreDisplay() {
         onModeChanged(mEvaluator.getDegreeMode(Evaluator.MAIN_INDEX));
         if (mCurrentState != CalculatorState.RESULT
-            && mCurrentState != CalculatorState.INIT_FOR_RESULT) {
+                && mCurrentState != CalculatorState.INIT_FOR_RESULT) {
             redisplayFormula();
         }
         if (mCurrentState == CalculatorState.INPUT) {
@@ -397,7 +399,7 @@ public class Calculator extends Activity
 
         mIsOneLine = mResultText.getVisibility() == View.INVISIBLE;
 
-        mInvertibleButtons = new View[] {
+        mInvertibleButtons = new View[]{
                 findViewById(R.id.fun_sin),
                 findViewById(R.id.fun_cos),
                 findViewById(R.id.fun_tan),
@@ -405,7 +407,7 @@ public class Calculator extends Activity
                 findViewById(R.id.fun_log),
                 findViewById(R.id.op_sqrt)
         };
-        mInverseButtons = new View[] {
+        mInverseButtons = new View[]{
                 findViewById(R.id.fun_arcsin),
                 findViewById(R.id.fun_arccos),
                 findViewById(R.id.fun_arctan),
@@ -424,7 +426,6 @@ public class Calculator extends Activity
 
         mFormulaText.setOnTextSizeChangeListener(this);
         mFormulaText.addTextChangedListener(mFormulaTextWatcher);
-        mDeleteButton.setOnLongClickListener(this);
 
         if (savedInstanceState != null) {
             restoreInstanceState(savedInstanceState);
@@ -491,14 +492,15 @@ public class Calculator extends Activity
             }
             mCurrentState = state;
 
-            if (mCurrentState == CalculatorState.RESULT) {
-                // No longer do this for ERROR; allow mistakes to be corrected.
-                mDeleteButton.setVisibility(View.GONE);
-                mClearButton.setVisibility(View.VISIBLE);
-            } else {
-                mDeleteButton.setVisibility(View.VISIBLE);
-                mClearButton.setVisibility(View.GONE);
-            }
+//            disable mCurrentState check
+//            if (mCurrentState == CalculatorState.RESULT) {
+//                // No longer do this for ERROR; allow mistakes to be corrected.
+//                mDeleteButton.setVisibility(View.GONE);
+//                mClearButton.setVisibility(View.VISIBLE);
+//            } else {
+//                mDeleteButton.setVisibility(View.VISIBLE);
+//                mClearButton.setVisibility(View.GONE);
+//            }
 
             if (mIsOneLine) {
                 if (mCurrentState == CalculatorState.RESULT
@@ -698,9 +700,9 @@ public class Calculator extends Activity
             for (View invertibleButton : mInvertibleButtons) {
                 invertibleButton.setVisibility(View.VISIBLE);
             }
-            for (View inverseButton : mInverseButtons) {
-                inverseButton.setVisibility(View.GONE);
-            }
+//            for (View inverseButton : mInverseButtons) {
+//                inverseButton.setVisibility(View.GONE);
+//            }
         }
     }
 
@@ -893,20 +895,10 @@ public class Calculator extends Activity
                 ? getString(R.string.desc_formula) : null);
     }
 
-    @Override
-    public boolean onLongClick(View view) {
-        mCurrentButton = view;
-
-        if (view.getId() == R.id.del) {
-            onClear();
-            return true;
-        }
-        return false;
-    }
 
     // Initial evaluation completed successfully.  Initiate display.
     public void onEvaluate(long index, int initDisplayPrec, int msd, int leastDigPos,
-            String truncatedWholeNumber) {
+                           String truncatedWholeNumber) {
         if (index != Evaluator.MAIN_INDEX) {
             throw new AssertionError("Unexpected evaluation result index\n");
         }
@@ -918,8 +910,8 @@ public class Calculator extends Activity
         if (mCurrentState != CalculatorState.INPUT) {
             // In EVALUATE, INIT, RESULT, or INIT_FOR_RESULT state.
             onResult(mCurrentState == CalculatorState.EVALUATE /* animate */,
-                     mCurrentState == CalculatorState.INIT_FOR_RESULT
-                    || mCurrentState == CalculatorState.RESULT /* previously preserved */);
+                    mCurrentState == CalculatorState.INIT_FOR_RESULT
+                            || mCurrentState == CalculatorState.RESULT /* previously preserved */);
         }
     }
 
@@ -964,9 +956,10 @@ public class Calculator extends Activity
 
     /**
      * Cancel any in-progress explicitly requested evaluations.
+     *
      * @param quiet suppress pop-up message.  Explicit evaluation can change the expression
-                    value, and certainly changes the display, so it seems reasonable to warn.
-     * @return      true if there was such an evaluation
+     *              value, and certainly changes the display, so it seems reasonable to warn.
+     * @return true if there was such an evaluation
      */
     private boolean cancelIfEvaluating(boolean quiet) {
         if (mCurrentState == CalculatorState.EVALUATE) {
@@ -1081,11 +1074,11 @@ public class Calculator extends Activity
     }
 
     public void onClearAnimationEnd() {
-         mUnprocessedChars = null;
-         mResultText.clear();
-         mEvaluator.clearMain();
-         setState(CalculatorState.INPUT);
-         redisplayFormula();
+        mUnprocessedChars = null;
+        mResultText.clear();
+        mEvaluator.clearMain();
+        setState(CalculatorState.INPUT);
+        redisplayFormula();
     }
 
     private void onClear() {
@@ -1116,8 +1109,8 @@ public class Calculator extends Activity
                     new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                           setState(CalculatorState.ERROR);
-                           mResultText.onError(index, errorResourceId);
+                            setState(CalculatorState.ERROR);
+                            mResultText.onError(index, errorResourceId);
                         }
                     });
         } else if (mCurrentState == CalculatorState.INIT
@@ -1320,7 +1313,7 @@ public class Calculator extends Activity
     @Override
     public boolean shouldCaptureView(View view, int x, int y) {
         return view.getId() == R.id.history_frame
-            && (mDragLayout.isMoving() || mDragLayout.isViewUnder(view, x, y));
+                && (mDragLayout.isMoving() || mDragLayout.isViewUnder(view, x, y));
     }
 
     @Override
@@ -1346,7 +1339,7 @@ public class Calculator extends Activity
             return false;
         } else if (mCurrentState == CalculatorState.EVALUATE) {
             // Cancel current evaluation
-            cancelIfEvaluating(true /* quiet */ );
+            cancelIfEvaluating(true /* quiet */);
             setState(CalculatorState.INPUT);
             return true;
         } else if (mCurrentState == CalculatorState.INIT) {
@@ -1422,8 +1415,9 @@ public class Calculator extends Activity
      * Map them to the appropriate button pushes when possible.  Leftover characters
      * are added to mUnprocessedChars, which is presumed to immediately precede the newly
      * added characters.
+     *
      * @param moreChars characters to be added
-     * @param explicit these characters were explicitly typed by the user, not pasted
+     * @param explicit  these characters were explicitly typed by the user, not pasted
      */
     private void addChars(String moreChars, boolean explicit) {
         if (mUnprocessedChars != null) {
