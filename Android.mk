@@ -23,7 +23,7 @@ LOCAL_USE_AAPT2 := true
 LOCAL_MODULE_TAGS := optional
 LOCAL_SDK_VERSION := current
 
-LOCAL_PACKAGE_NAME := ExactCalculator
+LOCAL_PACKAGE_NAME := Calculator
 LOCAL_OVERRIDES_PACKAGES := Calculator
 
 LOCAL_SRC_FILES := $(call all-java-files-under, src)
@@ -34,6 +34,6 @@ LOCAL_STATIC_JAVA_LIBRARIES := cr
 LOCAL_STATIC_ANDROID_LIBRARIES += androidx.legacy_legacy-support-v4
 LOCAL_STATIC_ANDROID_LIBRARIES += androidx.gridlayout_gridlayout
 LOCAL_STATIC_ANDROID_LIBRARIES += androidx.recyclerview_recyclerview
-LOCAL_STATIC_ANDROID_LIBRARIES += androidx.cardview_cardrview
+LOCAL_STATIC_ANDROID_LIBRARIES += androidx.cardview_cardview
 
 include $(BUILD_PACKAGE)
