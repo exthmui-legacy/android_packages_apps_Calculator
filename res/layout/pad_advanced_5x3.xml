@@ -26,7 +26,7 @@
 
     <Button
         android:id="@+id/toggle_inv"
-        style="@style/PadButtonStyle.Advanced.Text"
+        style="@style/PadButtonStyle.Advanced"
         android:background="@drawable/pad_button_inverse_background"
         android:contentDescription="@string/desc_inv_off"
         android:text="@string/inv"
@@ -35,7 +35,7 @@
 
     <Button
         android:id="@+id/toggle_mode"
-        style="@style/PadButtonStyle.Advanced.Text"
+        style="@style/PadButtonStyle.Advanced"
         android:contentDescription="@string/desc_switch_deg"
         android:text="@string/mode_deg"
         app:layout_row="0"

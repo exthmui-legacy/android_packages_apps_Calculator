@@ -20,11 +20,10 @@
     <!-- Default accent color. -->
     <color name="calculator_accent_color">#2193fc</color>
 
-    <!-- Primary color (Color for the toolbars). -->
-    <color name="calculator_primary_color">#ffffff</color>
+    <color name="window_background">#ffffffff</color>
 
     <!-- Status bar color. -->
-    <color name="calculator_statusbar_color">#ffffff</color>
+    <color name="calculator_statusbar_color">#ffffffff</color>
 
     <!-- Color to indicate an error has occured. -->
     <color name="calculator_error_color">#db4437</color>

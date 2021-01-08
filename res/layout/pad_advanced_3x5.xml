@@ -19,14 +19,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/pad_advanced"
-    style="@style/PadLayoutStyle.Advanced"
+    style="@style/PadLayoutStyle"
     android:background="@color/pad_advanced_background_color"
     app:rowCount="5"
     app:columnCount="3">
 
     <Button
         android:id="@+id/toggle_inv"
-        style="@style/PadButtonStyle.Advanced.Text"
+        style="@style/PadButtonStyle.Advanced"
         android:contentDescription="@string/desc_inv_off"
         android:text="@string/inv"
         app:layout_row="0"
@@ -34,7 +34,7 @@
 
     <Button
         android:id="@+id/toggle_mode"
-        style="@style/PadButtonStyle.Advanced.Text"
+        style="@style/PadButtonStyle.Advanced"
         android:contentDescription="@string/desc_switch_deg"
         android:text="@string/mode_deg"
         app:layout_row="0"
@@ -50,7 +50,7 @@
 
     <Button
         android:id="@+id/fun_10pow"
-        style="@style/PadButtonStyle.Advanced.Text"
+        style="@style/PadButtonStyle.Advanced"
         android:contentDescription="@string/desc_fun_10pow"
         android:fontFamily="sans-serif-medium"
         android:text="@string/fun_10pow"

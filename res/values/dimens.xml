@@ -18,7 +18,7 @@
 <resources>
 
     <!-- The margin between the pad pages when displayed using a view pager. -->
-    <dimen name="pad_page_margin">24dip</dimen>
+    <dimen name="pad_page_margin">18dp</dimen>
 
     <dimen name="history_divider_padding">14dip</dimen>
 
@@ -30,8 +30,8 @@
     <dimen name="formula_padding_bottom">8dip</dimen>
     <dimen name="formula_padding_start">16dip</dimen>
     <dimen name="formula_padding_end">16dip</dimen>
-    <dimen name="formula_min_textsize">28dip</dimen>
-    <dimen name="formula_max_textsize">28dip</dimen>
+    <dimen name="formula_min_textsize">36dip</dimen>
+    <dimen name="formula_max_textsize">45dip</dimen>
     <dimen name="formula_step_textsize">8dip</dimen>
 
     <!-- Dimens for display result. -->

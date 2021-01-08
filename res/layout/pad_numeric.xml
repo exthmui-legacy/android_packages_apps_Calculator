@@ -17,8 +17,7 @@
 <androidx.gridlayout.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/pad_numeric"
-    style="@style/PadLayoutStyle.Numeric"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <Button
@@ -49,6 +48,15 @@
         app:layout_row="0" />
 
     <Button
+        android:id="@+id/op_div"
+        style="@style/PadButtonStyle.Operator"
+        android:contentDescription="@string/desc_op_div"
+        android:text="@string/op_div"
+        android:textColor="@color/calculator_accent_color"
+        app:layout_column="3"
+        app:layout_row="0" />
+
+    <Button
         android:id="@+id/digit_7"
         style="@style/PadButtonStyle.Numeric"
         android:text="@string/digit_7"
@@ -67,6 +75,15 @@
         style="@style/PadButtonStyle.Numeric"
         android:text="@string/digit_9"
         app:layout_column="2"
+        app:layout_row="1" />
+
+    <Button
+        android:id="@+id/op_mul"
+        style="@style/PadButtonStyle.Operator"
+        android:contentDescription="@string/desc_op_mul"
+        android:text="@string/op_mul"
+        android:textColor="@color/calculator_accent_color"
+        app:layout_column="3"
         app:layout_row="1" />
 
     <Button
@@ -91,6 +108,15 @@
         app:layout_row="2" />
 
     <Button
+        android:id="@+id/op_sub"
+        style="@style/PadButtonStyle.Operator"
+        android:contentDescription="@string/desc_op_sub"
+        android:text="@string/op_sub"
+        android:textColor="@color/calculator_accent_color"
+        app:layout_column="3"
+        app:layout_row="2" />
+
+    <Button
         android:id="@+id/digit_1"
         style="@style/PadButtonStyle.Numeric"
         android:text="@string/digit_1"
@@ -112,9 +138,17 @@
         app:layout_row="3" />
 
     <Button
+        android:id="@+id/op_add"
+        style="@style/PadButtonStyle.Operator"
+        android:contentDescription="@string/desc_op_add"
+        android:text="@string/op_add"
+        android:textColor="@color/calculator_accent_color"
+        app:layout_column="3"
+        app:layout_row="3" />
+
+    <Button
         android:id="@+id/digit_double0"
-        style="@style/PadButtonStyle.Numeric.Equals"
-        android:contentDescription="@string/desc_eq"
+        style="@style/PadButtonStyle.Numeric"
         android:text="@string/digit_double0"
         app:layout_column="0"
         app:layout_row="4" />
@@ -131,6 +165,15 @@
         style="@style/PadButtonStyle.Numeric"
         android:contentDescription="@string/desc_dec_point"
         app:layout_column="2"
+        app:layout_row="4" />
+
+    <Button
+        android:id="@+id/eq"
+        style="@style/PadButtonStyle.Operator"
+        android:contentDescription="@string/desc_eq"
+        android:text="@string/eq"
+        android:textColor="@color/calculator_accent_color"
+        app:layout_column="3"
         app:layout_row="4" />
 
 </androidx.gridlayout.widget.GridLayout>

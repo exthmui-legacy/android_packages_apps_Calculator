@@ -23,8 +23,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="8dp"
         android:layout_weight="0.35"
+        android:layout_margin="8dp"
+        app:cardBackgroundColor="@color/calculator_primary_color"
         app:cardCornerRadius="8dp">
 
         <include layout="@layout/display" />
@@ -35,9 +36,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="8dp"
-        android:layout_weight="0.65"
+        android:layout_weight="0.45"
         app:cardCornerRadius="8dp">
-
 
         <com.android.calculator2.CalculatorPadViewPager
             android:id="@+id/pad_pager"
@@ -48,19 +48,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/calculator_primary_color"
-                android:baselineAligned="false">
+                android:background="@color/calculator_primary_color">
 
                 <include
                     layout="@layout/pad_numeric"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.7" />
-
-                <include
-                    layout="@layout/pad_operator"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.3"
+                    android:layout_width="match_parent"
+                    android:layout_marginEnd="@dimen/pad_page_margin"
                     android:layout_height="match_parent" />
 
             </LinearLayout>

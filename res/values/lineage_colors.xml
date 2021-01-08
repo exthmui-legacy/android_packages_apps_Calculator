@@ -16,5 +16,8 @@
   -->
 
 <resources>
+    <!-- Primary color (Color for the toolbars). -->
+    <color name="calculator_primary_color">@android:color/white</color>
+
     <color name="navigationBar_color">@android:color/white</color>
 </resources>
