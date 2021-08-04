@@ -700,9 +700,9 @@ public class Calculator extends Activity
             for (View invertibleButton : mInvertibleButtons) {
                 invertibleButton.setVisibility(View.VISIBLE);
             }
-//            for (View inverseButton : mInverseButtons) {
-//                inverseButton.setVisibility(View.GONE);
-//            }
+            for (View inverseButton : mInverseButtons) {
+                inverseButton.setVisibility(View.GONE);
+            }
         }
     }
 
