@@ -15,13 +15,11 @@
 //
 
 android_app {
-    name: "ExactCalculator",
+    name: "Calculator",
 
     resource_dirs: ["res"],
 
     sdk_version: "current",
-
-    overrides: ["Calculator"],
 
     srcs: ["src/**/*.java"],
 
